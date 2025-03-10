@@ -39,7 +39,7 @@ def preprocess_transfers(file_path: str, json_output_path: str) -> None:
 
     # 将字典保存为 JSON 文件
     # JSON 不支持元组作为键，因此将 (\ufefffrom_stop_id, to_stop_id) 转换为字符串 "\ufefffrom_stop_id:to_stop_id"
-    json_compatible_dict = {f"{from_stop}:{to_stop}": time for (from_stop, to_stop), time in transfer_dict.items()}
+    json_compatible_dict = {f"{from_stop} to {to_stop}": time for (from_stop, to_stop), time in transfer_dict.items()}
 
     with open(json_output_path, 'w', encoding='utf-8') as json_file:
         json.dump(json_compatible_dict, json_file, ensure_ascii=False, indent=4)
@@ -80,7 +80,7 @@ def query_transfer_time(transfer_dict: Dict[str, int], from_stop: str, to_stop: 
 # 示例用法
 if __name__ == "__main__":
     # 文件路径
-    input_file = "transfers.txt"
+    input_file = "raw_file/transfers.txt"
     output_json = "transfers.json"
 
     # 预处理并保存为 JSON
